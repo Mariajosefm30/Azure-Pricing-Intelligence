@@ -1,0 +1,65 @@
+description: >
+  Use this skill when the user wants to: research hot topics or
+  community concerns about Azure or AI pricing; generate a blog
+  outline on any Azure pricing topic; pull official Microsoft
+  wording for Azure Hybrid Benefit, Reservations, Savings Plans,
+  or the Pricing Calculator; or surface trending Reddit, GitHub,
+  and Microsoft Tech Community discussions. Always trigger for
+  any combination of Azure + pricing + content or research.
+---
+
+# Azure Pricing Intelligence Skill
+
+This skill does three things:
+1. Scrapes community channels for trending pricing concerns
+2. Pulls official Microsoft wording for Azure cost-saving offers
+3. Generates a structured blog outline from any topic prompt
+
+---
+
+## When the user types a topic or asks for a blog outline
+
+→ Go to Phase 3 (Blog Outline Generator) directly.
+
+## When the user asks what's trending or hot right now
+
+→ Run Phase 1 (Scrape) then Phase 2 (Analyze).
+
+---
+
+## Phase 1 — Scrape Community Channels
+
+Read `references/scraping-targets.md` for all URLs and keywords.
+Fetch each source, extract: title, URL, date, short excerpt.
+Filter by pricing keywords. Rank by recency + engagement.
+
+## Phase 2 — Analyze & Group Topics
+
+Buckets:
+- AI/ML Pricing (tokens, Copilot, OpenAI on Azure)
+- Compute Cost (VMs, Spot, Reservations)
+- Database Cost (SQL MI, Cosmos, PostgreSQL)
+- Hybrid/Licensing (Azure Hybrid Benefit, BYOL)
+- Budgeting Tools (Calculator, Cost Alerts)
+- Savings Plans (1yr vs 3yr, flexibility)
+
+Output as:
+### 🔥 Trending Now — [Date]
+1. [Topic] — [Source] — [Link] — [Why it matters]
+
+## Phase 3 — Blog Outline Generator
+
+When user provides a topic (e.g. "Azure Savings Plans for VMs"):
+
+1. Search scraping-targets for related community discussions
+2. Pull official messaging from `references/official-microsoft-sources.md`
+3. Pull offer details from `references/azure-pricing-content.md`
+4. Use the template in `references/blog-outline-template.md`
+
+Output a complete blog outline with:
+- Suggested title (using official Microsoft language)
+- Target audience
+- Key pain point from community research
+- Section-by-section outline with talking points
+- Official Microsoft quotes/stats to include
+- Call to action with relevant Azure offer link
